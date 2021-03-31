@@ -56,7 +56,7 @@ const PopUp = (props) => {
     }
   }
 
-  const popColseIcon = {
+  const popCloseIcon = {
     className: classNames({
       'n-popup__close': true
     })
@@ -73,7 +73,7 @@ const PopUp = (props) => {
   }
 
   if(closeable) {
-    Object.assign(popColseIcon, {
+    Object.assign(popCloseIcon, {
       style: {
         ...closeIconPosition
       },
@@ -122,7 +122,7 @@ const PopUp = (props) => {
       <div {...popUpProps} ref={popUpRef}>
         {
           closeable && (
-            <span {...popColseIcon}>
+            <span {...popCloseIcon}>
               <Icons name={closeIcon.name} color={closeIcon.color} />
             </span>
           )

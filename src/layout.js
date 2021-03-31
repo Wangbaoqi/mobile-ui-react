@@ -5,8 +5,6 @@ import RouteView from '@/routes/routeView';
 import './layout.scss';
 
 const Layout = (props) => {
-  console.log(props, 'layout');
-
 
   return (
     <div className="layout">
