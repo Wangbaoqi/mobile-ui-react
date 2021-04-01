@@ -2,60 +2,180 @@ import React, { useRef, useState } from 'react'
 
 import Tabs, {TabPane} from '@/component/ux/Tabs/index'
 
+import './index.scss';
 
 const TabView = () => {
 
 
-  const [tabIdx, setTabId] = useState(0);
+  const [tabIdxBasic, setTabIdBasic] = useState(0);
+  const [tabIdxLink, setTabIdxLink] = useState(0);
+  const [tabIdxScroll, setTabIdxScroll] = useState(0);
+  const [tabIdxSwipe, setTabIdxSwipe] = useState(0);
 
-  const tabList = [{
-    title: 'item1'
+  const tabList_basic = [{
+    title: '哈哈哈哈'
   },{
-    title: 'item2'
+    title: '顶顶顶顶'
   },{
-    title: 'item3'
-  },{
-    title: 'item4'
-  },{
-    title: 'item5'
-  },{
-    title: 'item6'
-  },{
-    title: 'item7'
+    title: '额鹅鹅鹅'
   }]
 
-  const setCurIdx = (e, id) => {
-    // console.log(e, id, 'ids');
-    // activeId = id
-    setTabId(id)
+  const tabList_link = [{
+    title: '哈哈哈哈'
+  },{
+    title: '顶顶顶顶'
+  },{
+    title: '额鹅鹅鹅'
+  }]
+
+  const tabList_scroll = [{
+    title: '哈哈哈哈'
+  },{
+    title: '顶顶顶顶'
+  },{
+    title: '额鹅鹅鹅'
+  },{
+    title: '柔柔弱弱'
+  },{
+    title: '吞吞吐吐'
+  },{
+    title: '呜呜呜呜'
+  },{
+    title: '凄凄切切'
+  }]
+
+  const tabList_swipe = [{
+    title: '哈哈哈哈'
+  },{
+    title: '顶顶顶顶'
+  },{
+    title: '额鹅鹅鹅'
+  },{
+    title: '柔柔弱弱'
+  },{
+    title: '吞吞吐吐'
+  },{
+    title: '呜呜呜呜'
+  },{
+    title: '凄凄切切'
+  }]
+
+  const setCurIdxBasic = (e, id) => {
+    setTabIdBasic(id)
+  }
+  const setCurIdxLink = (e, id) => {
+    setTabIdxLink(id)
+  }
+  const setCurIdxScroll = (e, id) => {
+    setTabIdxScroll(id)
+  }
+  const setCurIdxSwipe = (e, id) => {
+    setTabIdxSwipe(id)
   }
 
   return (
-    <div className='tab-view'>
-      tab
+    <div className='tab-view'> 
+      
+      <h2 className='tab-title'>基本使用</h2>
 
-      <Tabs tabs={tabList} curIdx={tabIdx} setCurIdx={setCurIdx}>
-        <TabPane >
-          4411
-        </TabPane>
-        <TabPane >
+      <Tabs 
+        tabs={tabList_basic}
+        curIdx={tabIdxBasic} 
+        setCurIdx={setCurIdxBasic} 
+        >
+          <TabPane >
+            4411
+          </TabPane>
+          <TabPane >
+              4422
+          </TabPane>
+          <TabPane >
+              4433
+          </TabPane>
+      </Tabs>
+
+      <h2 className='tab-title'>自定义线条宽度</h2>
+
+      <Tabs 
+        tabs={tabList_link}
+        curIdx={tabIdxLink} 
+        setCurIdx={setCurIdxLink} 
+        lineWidth={36}
+        >
+          <TabPane >
+            4411
+          </TabPane>
+          <TabPane >
+              4422
+          </TabPane>
+          <TabPane >
+              4433
+          </TabPane>
+      </Tabs>
+
+      <h2 className='tab-title'>标签栏滚动</h2>
+
+      <Tabs 
+        tabs={tabList_scroll}
+        curIdx={tabIdxScroll} 
+        setCurIdx={setCurIdxScroll} 
+        lineWidth={36}
+        scrollAble={true}
+        >
+          <TabPane >
+            4411
+          </TabPane>
+          <TabPane >
             4422
-        </TabPane>
-        <TabPane >
+          </TabPane>
+          <TabPane >
             4433
-        </TabPane>
-        <TabPane >
+          </TabPane>
+          <TabPane >
             4444
-        </TabPane>
-        <TabPane >
+          </TabPane>
+          <TabPane >
             4455
-        </TabPane>
-        <TabPane >
+          </TabPane>
+          <TabPane >
             4466
-        </TabPane>
-        <TabPane >
+          </TabPane>
+          <TabPane >
             4477
-        </TabPane>
+          </TabPane>
+      </Tabs>
+
+      <h2 className='tab-title'>panne滑动</h2>
+
+      <Tabs 
+        tabs={tabList_swipe}
+        curIdx={tabIdxSwipe} 
+        setCurIdx={setCurIdxSwipe} 
+        lineWidth={36}
+        scrollAble={true}
+        swipeAble={true}
+        >
+          <TabPane >
+            4411
+          </TabPane>
+          <TabPane >
+            4422
+          </TabPane>
+          <TabPane >
+            4433
+          </TabPane>
+          <TabPane >
+            4444
+          </TabPane>
+          <TabPane >
+            4455
+          </TabPane>
+          <TabPane >
+            4466
+          </TabPane>
+          <TabPane >
+            4477
+          </TabPane>
       </Tabs>
     </div>
   )

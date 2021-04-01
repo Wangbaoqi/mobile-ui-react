@@ -43,7 +43,7 @@
 		.n-tabs__nav--scrollable {
 			overflow-y: hidden;
 			overflow-x: scroll;
-			padding: 0 8px 15px 8px;
+			padding: 0 0px 15px 0px;
 
 			.n-tab {
 				flex: 1 0 auto;
@@ -56,10 +56,28 @@
 			bottom: 15px;
 			left: 0;
 			z-index: 1;
-			// width: 40px;
 			height: 3px;
-			background-color: #ee0a24;
 			border-radius: 3px;
+
+			.n-tab__line--inner {
+				height: 100%;
+				margin: auto;
+			}
 		}
+
+		
+	}
+	.n-tabs__content {
+
+			
+			
+	}
+
+	.n-tabs__pane {
+		width: 100%;
+		box-sizing: border-box;
+		flex-shrink: 0;
+		padding: 20px;
+		background-color: #fff;
 	}
 }

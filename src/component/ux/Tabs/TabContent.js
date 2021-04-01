@@ -1,7 +1,8 @@
 
 import React, { useRef } from 'react'
 import ClassName from 'classnames'
-const tabClass = 'n-tab';
+// import './index.scss';
+
 const basicClass = 'n-tabs';
 
 const TabContent = ({
@@ -27,7 +28,10 @@ const TabContent = ({
           const activeCls = active ? 'active' : 'inactive';
 
           const tabPaneProps = {
-            className: ClassName(`${basicClass}__pane`, [`${activeCls}`])
+            className: ClassName(`${basicClass}__pane`, [`${activeCls}`]),
+            style: {
+              display: active ? 'block' : 'none'
+            }
         
           }
       

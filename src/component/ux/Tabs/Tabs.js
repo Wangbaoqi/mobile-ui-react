@@ -14,6 +14,7 @@ import TabPane from "./TabPane";
 
 import './index.scss';
 
+const defaultLineColor = '#ee0a24';
 
 const basicClass = 'n-tabs';
 const tabClass = 'n-tab';
@@ -23,29 +24,35 @@ const Tabs = (
   {
     curIdx,
     tabs,
-    scrollAble = true,
+    scrollAble = false,
+    lineWidth,
+    lineColor = defaultLineColor,
     setCurIdx,
+    swipeAble = false,
     children
   }
 ) => {
 
-  Tabs.TabPane = TabPane;
 
   const tabNavRef = useRef(null) || { current: {} };
   const tabLineRef = useRef(null) || { current: {} };
 
+  // tabItem 宽度
   const [tabWidth, setTabWidth] = useState('0');
-
-  const rate = 100 / tabs.length
 
 
   useEffect(() => {
     // updateTabIndicator(tabNavRef, tabLineRef, curIdx)
     calculateLineWidth(tabNavRef.current);
     calculateScrollLeftLocation(tabNavRef.current);
-  }, [tabs])
+  }, [tabs]);
 
 
+  /**
+   * 计算line的宽度
+   * @param {*} tabNavEl 
+   * @returns 
+   */
   const calculateLineWidth = (tabNavEl) => {
     if(!scrollAble) return;
     const el = tabNavEl.children[curIdx];
@@ -53,16 +60,25 @@ const Tabs = (
     setTabWidth(parseInt(size, 10));
   }
 
+  /**
+   * 计算tabContainer滚动的距离
+   * @param {*} tabNavEl 
+   * @returns 
+   */
   const calculateScrollLeftLocation = (tabNavEl) => {
     if(!scrollAble) return;
     const index = curIdx - 1 >= 0 ? curIdx - 1 : 0;
     const prevTabItem = tabNavEl.children[index];
     if(scrollAble && tabNavEl && prevTabItem) {
       const { offsetLeft = 0 } = prevTabItem;
-      tabScrollTo(tabNavEl, offsetLeft, 0, 0.3);
+      tabScrollTo(tabNavEl, offsetLeft, 0, 0.2);
     }
   }
-
+  /**
+   * 计算line移动的位置
+   * @param {*} tabNavEl 
+   * @returns 
+   */
   const calculateLineWidthPosition = (tabNavEl) => {
     const childCount = children.length;
     let pos = 100 * curIdx;
@@ -104,6 +120,7 @@ const Tabs = (
     style: {
       ...calculateLineWidthPosition(tabNavRef.current),
       transitionDuration: "0.3s",
+      backgroundColor: lineWidth ? 'transparent' : (lineColor || defaultLineColor)
     },
   };
 
@@ -113,6 +130,21 @@ const Tabs = (
     style: {}
   }
 
+  const tabItemLineWidthCustom = () => {
+    if(!lineWidth) return '';
+
+    const lineWidthProps = {
+      className: ClassNames(`${tabClass}__line--inner`),
+      style: {
+        width: `${lineWidth}px`,
+        backgroundColor: lineColor
+      }
+    }
+
+    return (
+      <div {...lineWidthProps}></div>
+    )
+  }
 
   
   
@@ -168,6 +200,7 @@ const Tabs = (
   }
 
 
+
   return (
 
     <div {...tabsProps}>
@@ -175,14 +208,6 @@ const Tabs = (
       <div {...tabsWrapProps}>
         <div {...tabsNavProps} ref={tabNavRef}>
           {tabs.map((e, id) => {
-            // tabItemLineProps.style.transform = `translateX(${})`
-            // if(id == curIdx) {
-            //   deviate = rate * id
-            //   tabItemLineProps.style.width = `${rate}%`
-            //   tabItemLineProps.style.left = `${deviate}%`
-
-
-            // }
             return (
               <Tab
                 key={id}
@@ -193,7 +218,9 @@ const Tabs = (
               />
             );
           })}
-          <div {...tabItemLineProps} ref={tabLineRef}></div>
+          <div {...tabItemLineProps} ref={tabLineRef}>
+            {tabItemLineWidthCustom()}
+          </div>
         </div>
       </div>
       <TabContent 

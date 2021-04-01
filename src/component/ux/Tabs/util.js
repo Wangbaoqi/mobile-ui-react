@@ -1,5 +1,5 @@
 
-
+import raf from 'raf';
 
 
 
@@ -25,10 +25,18 @@ const getScrollLeft = (el) => {
   return el.scrollLeft
 }
 
+let scrollRaf = 0;
+let scrollList = []
 
 const tabScrollTo = (scrollContainer, left = 0, top = 0, duration = 0) => {
 
   let fromLeft = 0;
+  let count = 0;
+
+  if(scrollList[scrollRaf] == scrollContainer) {
+    // console.log('cancel');
+    raf.cancel(scrollRaf)
+  }
 
   if(scrollContainer == window) {
 
@@ -36,7 +44,7 @@ const tabScrollTo = (scrollContainer, left = 0, top = 0, duration = 0) => {
     fromLeft = getScrollLeft(scrollContainer);
   }
 
-  const frame = duration === 0 ? 1 : Math.random((1000 * duration) / 16);
+  const frame = duration === 0 ? 1 : Math.round((1000 * duration) / 16);
 
   function animate() { 
     if(scrollContainer === window) {
@@ -44,6 +52,14 @@ const tabScrollTo = (scrollContainer, left = 0, top = 0, duration = 0) => {
     }else {
       scrollContainer.scrollLeft += (left - fromLeft) / frame;
     }
+    count += 1;
+    if(count < frame) {
+      // console.log(count, 'count');
+      scrollRaf = raf(animate);
+      scrollList[scrollRaf] = scrollContainer;
+    }
+    // console.log(left, fromLeft, frame, scrollContainer.scrollLeft, 'left');
+
   }
   // parseInt(getComputedStyle(scrollContainer).getPropertyValue('padding-left'))
 
