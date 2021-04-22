@@ -40,9 +40,9 @@ const customWebpack = () => config => {
     config.devtool = false;
     
     // 打包分析
-    config.plugins.push(
-      new BundleAnalyzerPlugin()
-    )
+    // config.plugins.push(
+    //   new BundleAnalyzerPlugin()
+    // )
   }
   return config
 }

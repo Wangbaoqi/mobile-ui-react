@@ -1,20 +1,25 @@
 import React, { useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import Icons from '@/component/ux/Icons/index';
 import PropTypes from 'prop-types';
+import Icons from '@/component/ux/Icons/index';
+
 import './index.scss';
 
 const baseCls = 'n-popup';
 
+const safeAreaIBottom = 'safe-area-inset-bottom'
+
 const PopUp = ({ 
   position = 'bottom',
   isShow = false, 
+  title = '',
+  titlePosition = 'left',
   content = '',
-  size,
-  onSetActive,
+  onClose,
   height,
   borderRadius,
-  customClass = '',
+  titleStyle = {},
+  safeAreaInsetBottom = true,
   closeable = true,
   closeIcon = { name: 'cross', color: '#e1514c'},
   closeIconPosition = { top: '10px', right: '10px'}
@@ -35,12 +40,19 @@ const PopUp = ({
   }
 
   const popUpProps = {
-    className: classNames(baseCls, [{ isShow }, `${position}`]),
+    className: classNames(baseCls, {[`${safeAreaIBottom}`]: safeAreaInsetBottom}, [{ isShow }, `${position}` ]),
     style: {}
   }
 
+  const titleBarProps = {
+    className: classNames(`${baseCls}__title`),
+    style: {
+      textAlign: titlePosition
+    }
+  }
+
   const contentProps = {
-    className: classNames(`${baseCls}__content`, [`${position}`, `${customClass}`]),
+    className: classNames(`${baseCls}__content`, [`${position}`]),
     style: {
       
     }
@@ -54,7 +66,7 @@ const PopUp = ({
 
   const handlePopClick = (e) => {
     if(popUpRef && popUpRef.current && !popUpRef.current.isSameNode(e.target)) {
-      onSetActive(false)
+      onClose && onClose()
     }
   }
 
@@ -62,24 +74,25 @@ const PopUp = ({
     return popUpProps.className.includes(data)
   }
 
+
+  if(titleStyle) {
+    Object.assign(titleBarProps, {
+      style: {
+        ...titleBarProps.style,
+        ...titleStyle
+      }
+    })
+  }
+
   if(closeable) {
     Object.assign(popCloseIcon, {
       style: {
         ...closeIconPosition
       },
-      onClick: () => { onSetActive(false) }
+      onClick: () => { onClose() }
     })
   }
 
-  if(size) {
-    Object.assign(popUpProps, {
-      style: {
-        ...popUpProps.style,
-        width: size.width && size.height,
-        height: size.height && size.height
-      }
-    })
-  }
 
   if(borderRadius) {
     Object.assign(popUpProps, {
@@ -109,14 +122,12 @@ const PopUp = ({
   return (
     <div {...containerProps}>
       <div {...popUpProps} ref={popUpRef}>
-        <div ></div>
-        {
-          closeable && (
-            <span {...popCloseIcon}>
-              <Icons name={closeIcon.name} color={closeIcon.color} />
-            </span>
-          )
-        }
+        <div {...titleBarProps}>
+          {title}
+        </div>
+        <span {...popCloseIcon}>
+          <Icons name={closeIcon.name} color={closeIcon.color} />
+        </span>
         <div {...contentProps}> 
           { content && content }
         </div>
@@ -129,8 +140,7 @@ PopUp.propTypes = {
   position: PropTypes.string,
   isShow: PropTypes.bool, 
   content: PropTypes.object,
-  size: PropTypes.object,
-  onSetActive: PropTypes.func,
+  onClose: PropTypes.func,
   height: PropTypes.string,
   borderRadius: PropTypes.string,
   customClass: PropTypes.string,

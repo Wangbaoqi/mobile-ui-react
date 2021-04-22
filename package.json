@@ -25,6 +25,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
+    "deploy": "bash deploy.sh",
     "analyze": "webpack --analyze"
   },
   "eslintConfig": {
