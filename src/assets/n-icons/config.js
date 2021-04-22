@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'vant-icon',
+  name: 'n-icon',
   basic: [
     'success',
     'plus',

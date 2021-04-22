@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
-
+import Gesture from 'rc-gesture';
 import Tabs, {TabPane} from '@/component/ux/Tabs/index'
 
 import './index.scss';
 
 const TabView = () => {
 
+  let refSwiper = useRef(null) || {current: {}};
 
   const [tabIdxBasic, setTabIdBasic] = useState(0);
   const [tabIdxLink, setTabIdxLink] = useState(0);
@@ -73,6 +74,22 @@ const TabView = () => {
     setTabIdxSwipe(id)
   }
 
+
+
+  const moveSwiper = (e, arg) => {
+    const { srcEvent, moveStatus } = e;
+    const { x, y } = moveStatus;
+
+    refSwiper.current.style.transform = `translateX(${x}px)`;
+
+    srcEvent.preventDefault();
+    // console.log(e, arg, 'moveSwiper');
+  }
+
+  const resetSwiper = () => {
+    refSwiper.current.style.transform = `translateX(0px)`;
+  }
+
   return (
     <div className='tab-view'> 
       
@@ -87,10 +104,10 @@ const TabView = () => {
             4411
           </TabPane>
           <TabPane >
-              4422
+            4422
           </TabPane>
           <TabPane >
-              4433
+            4433
           </TabPane>
       </Tabs>
 
@@ -149,7 +166,7 @@ const TabView = () => {
 
       <Tabs 
         tabs={tabList_swipe}
-        curIdx={tabIdxSwipe} 
+        curIdx={tabIdxSwipe}
         setCurIdx={setCurIdxSwipe} 
         lineWidth={36}
         scrollAble={true}
@@ -177,7 +194,32 @@ const TabView = () => {
             4477
           </TabPane>
       </Tabs>
+
+
+
+
+      <div className='test rc'>
+        <Gesture 
+          direction={'horizontal'}
+          onPanMove={ (e, args) => { moveSwiper(e, args); } }
+          onPanEnd={ () => { resetSwiper(); } }
+          onTouchMove={ (e) => { console.log('still run touch move'); } }
+        >
+
+          <div style={{ height: '200px', background: 'red'}}>
+            <div className='swiper' ref={refSwiper}>
+              container1container
+            </div>
+          </div>
+        </Gesture>
+
+      </div>
     </div>
+
+
+
+
+    
   )
 }
 

@@ -21,7 +21,15 @@ const routerConfig = [
       {
         path: '/tab',
         component: lazy(() => import('@/pages/tab/index'))
-      }
+      },
+      {
+        path: '/swiper',
+        component: lazy(() => import('@/pages/swiper/index'))
+      },
+      {
+        path: '/drag',
+        component: lazy(() => import('@/pages/drag/index'))
+      },
     ]    
   }
 ]

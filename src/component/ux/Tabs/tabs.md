@@ -33,4 +33,5 @@
 2. tabs 头部数据源列表
 3. scrollable 头部是否可以滑动
 4. lineWidth 滑动线自定义宽度
-5. 
+5. lineColor 滑动线的颜色
+6. 

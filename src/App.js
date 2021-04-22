@@ -26,6 +26,26 @@ const uxList = [
       },
     ],
   },
+
+  {
+    title: "展示组件",
+    list: [
+      {
+        name: "Swiper 轮播",
+        path: "/swiper",
+      },
+    ],
+  },
+
+  {
+    title: "拖拽组件",
+    list: [
+      {
+        name: "Drag 拖拽",
+        path: "/drag",
+      },
+    ],
+  },
 ];
 
 function App() {

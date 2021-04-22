@@ -10,7 +10,6 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 10;
   transition: 0.5s;
   visibility: hidden;
 
@@ -22,15 +21,12 @@
 
 .n-popup__close {
   position: absolute;
-  i {
-    cursor: pointer;
-  }
 }
 
 
 .n-popup {
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: #fff;
   transition: 0.4s ease-in-out;
 
@@ -67,10 +63,6 @@
 
 
 .n-popup__content {
-  width: fit-content;
-  width: -moz-fit-content;
-  width: -webkit-fit-content;
-  height: fit-content;
-  height: -moz-fit-content;
-  height: -webkit-fit-content;
+  width: auto;
+  height: auto;
 }

@@ -3,7 +3,6 @@ import React, { memo } from 'react'
 import classNames from 'classnames'
 import './index.scss'
 
-
 const baseClass = 'n-icon'
 
 
@@ -53,8 +52,6 @@ const Icon = ({
       onClick
     })
   }
-
-
 
   return (
     <div {...containerProps}>
