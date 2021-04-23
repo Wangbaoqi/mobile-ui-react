@@ -9,28 +9,41 @@ const PopUpView = () => {
   const [popShow, setPopShow] = useState(false);
 
 
+
+  const clickBtn = () => {
+    console.log(33);
+  }
+
   const content = (
     <div className='pop-container'>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
-      <p>this is content</p>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      <div>this is content</div>
+      
 
-      <div className='bottom-btn'>Confirm</div>
+      <div className='bottom-btn' onClick={() => { clickBtn() }}>Confirm</div>
     </div>
   )
   const titleStyle = {
-    padding: '10px'
+    padding: '.7rem'
   }
 
 
@@ -48,10 +61,10 @@ const PopUpView = () => {
         isShow={popShow}
         title={'这是标题'}
         titleStyle={titleStyle}
-        height='50%'
+        height='70%'
         customTitleClass={'title-box'}
         onClose={onClosePop}
-        borderRadius={'10px'}
+        borderRadius={'6px'}
         content={content}
       />
 

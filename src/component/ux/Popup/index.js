@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Icons from '@/component/ux/Icons/index';
@@ -7,7 +7,6 @@ import './index.scss';
 
 const baseCls = 'n-popup';
 
-const safeAreaIBottom = 'safe-area-inset-bottom'
 
 const PopUp = ({ 
   position = 'bottom',
@@ -19,7 +18,7 @@ const PopUp = ({
   height,
   borderRadius,
   titleStyle = {},
-  safeAreaInsetBottom = true,
+  closeOverlay = false,
   closeable = true,
   closeIcon = { name: 'cross', color: '#e1514c'},
   closeIconPosition = { top: '10px', right: '10px'}
@@ -27,20 +26,13 @@ const PopUp = ({
 
   const popUpRef = useRef(null) || { current: {} }
 
-  useEffect(() => {
-    document.addEventListener('click', handlePopClick, true)
-    return () => {
-      document.removeEventListener('click', handlePopClick, true)
-    }
-  })
-
   const containerProps = {
     className: classNames(`${baseCls}__container`, [{ isShow }, `${position}`]),
     style: {}
   }
 
   const popUpProps = {
-    className: classNames(baseCls, {[`${safeAreaIBottom}`]: safeAreaInsetBottom}, [{ isShow }, `${position}` ]),
+    className: classNames(baseCls, [{ isShow }, `${position}`]),
     style: {}
   }
 
@@ -59,13 +51,11 @@ const PopUp = ({
   }
 
   const popCloseIcon = {
-    className: classNames({
-      'n-popup__close': true
-    })
+    className: classNames(`${baseCls}__close`, { closeShow: closeable })
   }
 
   const handlePopClick = (e) => {
-    if(popUpRef && popUpRef.current && !popUpRef.current.isSameNode(e.target)) {
+    if(popUpRef && popUpRef.current && popUpRef.current.isSameNode(e.target)) {
       onClose && onClose()
     }
   }
@@ -81,6 +71,12 @@ const PopUp = ({
         ...titleBarProps.style,
         ...titleStyle
       }
+    })
+  }
+
+  if(closeOverlay) {
+    Object.assign(containerProps, {
+      onClick: (e) => { handlePopClick(e) }
     })
   }
 
@@ -120,13 +116,13 @@ const PopUp = ({
   }
 
   return (
-    <div {...containerProps}>
-      <div {...popUpProps} ref={popUpRef}>
+    <div {...containerProps} ref={popUpRef}>
+      <div {...popUpProps}>
         <div {...titleBarProps}>
           {title}
         </div>
         <span {...popCloseIcon}>
-          <Icons name={closeIcon.name} color={closeIcon.color} />
+          <Icons {...closeIcon} />
         </span>
         <div {...contentProps}> 
           { content && content }

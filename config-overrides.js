@@ -38,7 +38,7 @@ const devServerConfig = () => config => {
 const customWebpack = () => config => {
   if(process.env.NODE_ENV === 'production') {
     config.devtool = false;
-    
+    config.output.publicPath = '/react.components/'
     // 打包分析
     // config.plugins.push(
     //   new BundleAnalyzerPlugin()

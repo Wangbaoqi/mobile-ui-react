@@ -1,4 +1,7 @@
 
+p {
+  margin: 0;
+}
 
 .popup-view {
 
@@ -11,11 +14,13 @@
       bottom: 0;
       width: 100%;
       background-color: cadetblue;
-      height: 100px;
-      line-height: 100px;
+      height: 50px;
+      line-height: 50px;
       text-align: center;
       font-size: 20px;
       color: #fff;
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
   }

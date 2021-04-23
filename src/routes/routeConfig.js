@@ -8,7 +8,6 @@ const routerConfig = [
   {
     path: '/',
     component: Layout,
-    redirect: '/index',
     children: [
       {
         path: '/index',

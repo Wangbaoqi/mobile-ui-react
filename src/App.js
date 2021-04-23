@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
+import { Link } from 'react-router-dom'
+
 import RouterHandle from "@/routes/routeHandle";
 import Icons from "@/component/ux/Icons/index";
 
@@ -66,10 +68,14 @@ function App() {
         {
           e.list.map((v, id) => (
             <div className="n-ux-nav__group" key={id}>
-              <div className="n-ux-nav__item" onClick={() => navigateTo(v.path)}>
+              {/* <div className="n-ux-nav__item" onClick={() => navigateTo(v.path)}>
                 <span className="item-ux__title">{v.name}</span>
                 <Icons name={"arrow"} color={"#333"} />
-              </div>
+              </div> */}
+              <Link className="n-ux-nav__item" to={v.path}>
+                <span className="item-ux__title">{v.name}</span>
+                <Icons name={"arrow"} color={"#333"} />
+              </Link>
             </div>
           ))
         }

@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "@/store";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import RouterView from "@/routes/routeView";
 import routeConfig from '@/routes/routeConfig'
 
 ReactDOM.render(
-  <Router>
+  <BrowserRouter basename='/react.components/'>
     <Suspense fallback={<div>loading...</div>}>
       <Provider store={store}>
         <React.StrictMode>
@@ -16,7 +16,7 @@ ReactDOM.render(
         </React.StrictMode>
       </Provider>
     </Suspense>
-  </Router>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 
